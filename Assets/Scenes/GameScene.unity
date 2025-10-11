@@ -1545,6 +1545,7 @@ GameObject:
   - component: {fileID: 1631528319}
   - component: {fileID: 1631528321}
   - component: {fileID: 1631528320}
+  - component: {fileID: 1631528322}
   m_Layer: 5
   m_Name: Board
   m_TagString: Untagged
@@ -1611,6 +1612,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1631528318}
   m_CullTransparentMesh: 1
+--- !u!114 &1631528322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631528318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d3542cf8e2806718f7eaba65b065f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilePrefab: {fileID: 1494205825675540351, guid: 4bff8db9b783b21c286c94d37d55dbc3, type: 3}
+  tileStates:
+  - {fileID: 11400000, guid: d158a1567af516114a1d8cf0f9c3b7a9, type: 2}
+  - {fileID: 11400000, guid: d6f897463c20682d7b742305d452e82f, type: 2}
+  - {fileID: 11400000, guid: 57f038d70b18128779a1a4d8aff744c2, type: 2}
+  - {fileID: 11400000, guid: 2e52dc47e6955d5a58a7977090b6fe0e, type: 2}
+  - {fileID: 11400000, guid: 959a29360518a2878bf104dc4d705911, type: 2}
+  - {fileID: 11400000, guid: 1ba4814ccef8e54eea789b3e8c73ad68, type: 2}
+  - {fileID: 11400000, guid: 43bd5f6ff9053d5bc8436e501f345060, type: 2}
+  - {fileID: 11400000, guid: 163dffb80e770572097d97083e6140da, type: 2}
+  - {fileID: 11400000, guid: 29889b59af5c33e169191a20dfd70b4c, type: 2}
+  - {fileID: 11400000, guid: 96be22956de325e9fb98719d5f357c60, type: 2}
+  - {fileID: 11400000, guid: c340c328a68ca8c5cb072a8289b4c34f, type: 2}
 --- !u!1 &1659685837
 GameObject:
   m_ObjectHideFlags: 0
