@@ -140,6 +140,11 @@ public class TileBoard : MonoBehaviour {
         yield return new WaitForSeconds(.15f);
         waiting = false;
 
+        foreach (var tile in tiles)
+        {
+            tile.locked = false;
+        }
+
         if (tiles.Count != grid.size)
         {
             CreateTile();
