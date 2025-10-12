@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public class Tile : MonoBehaviour
     public TileState state { get; private set; }
     public TileCell cell { get; private set; }
     public int number { get; private set; }
+    public bool locked { get; private set; }
 
 
     Image background;
@@ -40,7 +42,17 @@ public class Tile : MonoBehaviour
 
         transform.position = cell.transform.position;
     }
-    
+
+    public void Merge(TileCell cell)
+    {
+        if (this.cell != null)
+            this.cell.tile = null;
+
+        this.cell = null;
+        cell.tile.locked = true;
+        StartCoroutine(AnimateMove(cell.transform.position, true));
+    }
+
     public void MoveTo(TileCell cell)
     {
         if (this.cell != null)
@@ -49,6 +61,35 @@ public class Tile : MonoBehaviour
         this.cell = cell;
         this.cell.tile = this;
 
-        transform.position = cell.transform.position;
+        // ilk hali:
+        // transform.position = cell.transform.position;
+
+        // Korutin örneği:
+        StartCoroutine(AnimateMove(cell.transform.position));
+
+        // dotween varsa:
+        // transform.DOMove(cell.transform.position, 0.15f)
+        //      .SetEase(Ease.OutQuad);
+    }
+    
+    private IEnumerator AnimateMove(Vector3 to, bool merging = false)
+    {
+        float elapsed = 0f;
+        float duration = 0.15f;
+        Vector3 from = transform.position;
+
+        while (elapsed < duration)
+        {
+            transform.position = Vector3.Lerp(from, to, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = to;
+
+        if (merging)
+        {
+            Destroy(gameObject);
+        }
     }
 }
