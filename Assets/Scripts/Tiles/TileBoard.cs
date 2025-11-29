@@ -45,6 +45,7 @@ public class TileBoard : MonoBehaviour {
     void MoveTiles(Vector2Int direction, int startX, int incrementX, int startY, int incrementY)
     {
         bool changed = false;
+        int maxMergedNumber = 0;
 
         for (int x = startX; x >= 0 && x < grid.width; x += incrementX)
         {
@@ -54,29 +55,49 @@ public class TileBoard : MonoBehaviour {
 
                 if (cell.occupied)
                 {
-                    changed |= MoveTile(cell.tile, direction);
-                    // changed bir tanesi bile true olduğunda direk true olarak dönecektir.
+                    int moveResult = MoveTile(cell.tile, direction);
+                    if (moveResult > 0)
+                    {
+                        changed = true;
+                        if (moveResult > 1) 
+                        {
+                            if (moveResult > maxMergedNumber)
+                            {
+                                maxMergedNumber = moveResult;
+                            }
+                        }
+                    }
                 }
             }
         }
 
         if (changed)
+        {
+            if (maxMergedNumber > 0)
+            {
+                SoundID sound = maxMergedNumber < 128 ? SoundID.ScoreUpLow : SoundID.ScoreUpHigh;
+                SoundController.RequestSound(sound);
+            }
             StartCoroutine(WaitForChanges());
+        }
     }
 
-    bool MoveTile(Tile tile, Vector2Int direction)
+    int MoveTile(Tile tile, Vector2Int direction) 
     {
         TileCell newCell = null;
         TileCell adjacent = grid.GetAdjacentCell(tile.cell, direction);
-
+        GameScorePanel.Instance.UpdateMoveCount();
+        
         while (adjacent != null)
         {
             if (adjacent.occupied)
             {
                 if (CanMergeTile(tile, adjacent.tile))
                 {
-                    MergeTile(tile, adjacent.tile);
-                    return true;
+                    // Birleştirme oldu, yeni sayıyı döndür
+                    int mergedNumber = MergeTile(tile, adjacent.tile);
+                    GameScorePanel.Instance.UpdateMergeCount();
+                    return mergedNumber; 
                 }
                 break;
             }
@@ -88,10 +109,10 @@ public class TileBoard : MonoBehaviour {
         if (newCell != null)
         {
             tile.MoveTo(newCell);
-            return true;
+            return 1; // Kaydırma oldu
         }
 
-        return false;
+        return 0; // Hareket yok
     }
 
     bool CanMergeTile(Tile a, Tile b)
@@ -99,7 +120,7 @@ public class TileBoard : MonoBehaviour {
         return a.number == b.number && !b.locked;
     }
 
-    void MergeTile(Tile a, Tile b)
+    int MergeTile(Tile a, Tile b)
     {
         tiles.Remove(a);
         a.Merge(b.cell);
@@ -107,6 +128,8 @@ public class TileBoard : MonoBehaviour {
         int index = Mathf.Clamp(IndexOf(b.state) + 1, 0, tileStates.Length -1);
         int number = b.number * 2;
         b.SetState(tileStates[index], number);
+        GameScorePanel.Instance.UpdateScore(number);
+        return b.number ;
     }
 
     int IndexOf(TileState state)
@@ -186,6 +209,10 @@ public class TileBoard : MonoBehaviour {
             if (left?.tile != null && CanMergeTile(tile, left.tile)) return false;
             if (right?.tile != null && CanMergeTile(tile, right.tile)) return false;
         }
+
+        GameScorePanel.Instance.SaveHighScores();
+        GameScorePanel.Instance.ResetAndDisplayScores();
+        SoundController.RequestSound(SoundID.GameOver);
 
         return true;
     }

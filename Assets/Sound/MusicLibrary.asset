@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c6a20b602285e578952a3381bc48dda, type: 3}
+  m_Script: {fileID: 11500000, guid: 452ba7d0faa4462449fc94d918660493, type: 3}
   m_Name: MusicLibrary
   m_EditorClassIdentifier: 
-  musicClips: []
+  musicClips:
+  - {fileID: 8300000, guid: b35217a8abc73e048ac6ef080be1a1a6, type: 3}

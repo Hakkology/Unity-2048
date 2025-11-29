@@ -50,6 +50,7 @@ public class Tile : MonoBehaviour
 
         this.cell = null;
         cell.tile.locked = true;
+
         StartCoroutine(AnimateMove(cell.transform.position, true));
     }
 

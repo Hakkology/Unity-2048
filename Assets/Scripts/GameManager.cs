@@ -1,10 +1,10 @@
+using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour 
 {
     public TileBoard board;
-
-
+    public BasePanel gameOverPanel;
     void OnEnable()
     {
         board.gameOverCall += GameOver;
@@ -32,5 +32,6 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         board.enabled = false;
+        gameOverPanel.OpenPanel();
     }
 }

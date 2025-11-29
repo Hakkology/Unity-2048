@@ -38,6 +38,8 @@ public abstract class BasePanel : MonoBehaviour, IBasePanel
 
     public virtual void ClosePanel()
     {
+        if (canvasGroup == null) return;
+
         currentTween?.Kill();
         IsOpen = false;
         currentTween = canvasGroup.DOFade(0f, transitionDuration)
@@ -53,6 +55,8 @@ public abstract class BasePanel : MonoBehaviour, IBasePanel
 
     public virtual void HidePanel() 
     {
+        if (canvasGroup == null) return;
+        
         currentTween?.Kill();
         IsOpen = false;
         currentTween = canvasGroup.DOFade(0f, transitionDuration)

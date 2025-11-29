@@ -5,12 +5,12 @@ public class MenuGUIManager : MonoBehaviour
 {
     [Header("Panels")]
     [SerializeField] private MenuBasePanel mainMenuPanel;
-    [SerializeField] private BasePanel settingsPanel;
+    // [SerializeField] private BasePanel settingsPanel;
     [SerializeField] private BasePanel creditsPanel;
 
     private void Start()
     {
-        settingsPanel.ClosePanel();
+        // settingsPanel.ClosePanel();
         creditsPanel.ClosePanel();
         mainMenuPanel.OpenPanel();
     }
@@ -19,46 +19,50 @@ public class MenuGUIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (settingsPanel.IsOpen)
+            // if (settingsPanel.IsOpen)
+            // {
+            //     settingsPanel.ClosePanel();
+            //     mainMenuPanel.OpenPanel();
+            // }
+            if (creditsPanel.IsOpen)
             {
-                settingsPanel.ClosePanel();
-                mainMenuPanel.OpenPanel();
-            }
-            else if (creditsPanel.IsOpen)
-            {
+                SoundController.RequestSound(SoundID.ButtonClick);
                 creditsPanel.ClosePanel();
                 mainMenuPanel.OpenPanel();
             }
-            else if (mainMenuPanel.IsOpen)
-            {
-                OnExitPressed();
-            }
+            // else if (mainMenuPanel.IsOpen)
+            // {
+            //     OnExitPressed();
+            // }
         }
     }
 
     public void OnPlayPressed()
     {
+        SoundController.RequestSound(SoundID.ButtonClick);
         mainMenuPanel.ClosePanel();
-        SceneManager.LoadScene("ShooterScene");
+        SceneManager.LoadScene("GameScene");
     }
 
     public void OnCreditsPressed()
     {
+        SoundController.RequestSound(SoundID.ButtonClick);
         mainMenuPanel.ClosePanel();
-        settingsPanel.ClosePanel();
+        // settingsPanel.ClosePanel();
         creditsPanel.OpenPanel();
     }
 
-    public void OnSettingsPressed()
-    {
-        mainMenuPanel.ClosePanel();
-        creditsPanel.ClosePanel();
-        settingsPanel.OpenPanel();
-    }
+    // public void OnSettingsPressed()
+    // {
+    //     mainMenuPanel.ClosePanel();
+    //     creditsPanel.ClosePanel();
+    //     settingsPanel.OpenPanel();
+    // }
 
     public void OnBackToMenuPressed()
     {
-        settingsPanel.ClosePanel();
+        // settingsPanel.ClosePanel();
+        SoundController.RequestSound(SoundID.ButtonClick);
         creditsPanel.ClosePanel();
         mainMenuPanel.OpenPanel();
     }

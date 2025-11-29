@@ -56,5 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "2048.sln"
+    "dotnet.defaultSolution": "Unity-2048.sln",
+    "dotnet.preferCSharpExtension": true
 }

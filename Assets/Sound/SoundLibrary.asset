@@ -9,7 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7aca11936d3e46acbb13a9091943792, type: 3}
+  m_Script: {fileID: 11500000, guid: e478863de7aaf464fa414dd8f901a25e, type: 3}
   m_Name: SoundLibrary
   m_EditorClassIdentifier: 
-  sounds: []
+  sounds:
+  - soundID: 0
+    clip: {fileID: 8300000, guid: 95448627fdc27ba4eaf70c3bca064d1e, type: 3}
+  - soundID: 1
+    clip: {fileID: 8300000, guid: bb1c24bfee7c148449444125950cb370, type: 3}
+  - soundID: 2
+    clip: {fileID: 8300000, guid: 416eb474f9bf8ee4f89506d346504766, type: 3}
+  - soundID: 3
+    clip: {fileID: 8300000, guid: 01cdf6f8ad53cba4e8b657c83c93516c, type: 3}
